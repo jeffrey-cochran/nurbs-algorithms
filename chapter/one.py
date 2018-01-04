@@ -10,7 +10,7 @@ def Horner1(a, u0):
     C = a[degree]
     #
     # Iterate over lower exponents
-    for i in range(degree - 1, 0, -1):
+    for i in range(degree - 1, -1, -1):
         C = C * u0 + a[i]
     #
     return C
