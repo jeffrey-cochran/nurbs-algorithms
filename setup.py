@@ -10,7 +10,7 @@ CLASSIFIERS = [
 ]
 
 
-with open('__version__', 'rb') as f:
+with open('__version__', 'r') as f:
     version = f.read().strip()
 
 
