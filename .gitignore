@@ -3,3 +3,5 @@
 *.pyc
 *sandbox*
 *__pycache__
+/dist/
+/nurbs_algorithms.egg-info/
