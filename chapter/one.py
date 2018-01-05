@@ -1,11 +1,11 @@
 from numpy import zeros, asarray
 
 
-def Horner1(a, u0):
+def Horner1(a, n, u0):
     '''Horner algorithm for computing a power basis curve'''
     #
     # Get degree
-    degree = len(a) - 1
+    degree = n
     #
     # Initialize curve evaluation
     C = a[degree]
@@ -32,7 +32,7 @@ def Bernstein(i, n, u):
     # families of Bernstein polynomials
     for k in range(1, n + 1):
         #
-        # Inner loop computes current value of 
+        # Inner loop computes current value of
         # Bernstein polynomial family based on
         # previous family's evaluation.
         for j in range(n, k - 1, -1):
@@ -67,7 +67,8 @@ def PointOnBezierCurve(P, n, u):
     #
     B_list = AllBernstein(n, u)
     C = asarray([0.0, 0.0])
-    for k in range(0, n + 1): C += (B_list[k] * P[k])
+    for k in range(0, n + 1):
+        C += (B_list[k] * P[k])
     #
     return C
 
@@ -89,6 +90,18 @@ def deCasteljau1(P, n, u):
 
 def Horner2(a, n, m, u0, v0):
     #
-    
+    C1 = tuple(Horner1(a[i], m, u0) for i in range(0, n + 1))
+    S = Horner1(C1, n, v0)
+    #
+    return S
+
+
+def deCasteljau2(P, n, m, u0, v0):
+    #
+    # Although it's more efficient to compute this
+    # on the smaller of n or m, the data structure I'm using
+    # is overly simple and doesn't naturally support 2D indexing
+    Q = tuple(deCasteljau1(P[j], n, u0) for j in range(0, m + 1))
+    S = deCasteljau1(Q, m, v0)
     #
     return S
