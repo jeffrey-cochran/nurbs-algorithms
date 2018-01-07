@@ -73,17 +73,23 @@ def PointOnBezierCurve(P, n, u):
     return C
 
 
-def deCasteljau1(P, n, u):
+def deCasteljau1(P, n, u, return_points=False):
     #
     Q = tuple(point.copy() for point in P)
     u0 = 1.0 - u
+    points = []
     #
     for k in range(1, n + 1):
+        current_points = []
         for i in range(0, n - k + 1):
             Q[i] = u0 * Q[i] + u * Q[i + 1]
+            current_points.append(Q[i].copy())
         #
+        points.append(tuple(current_points))
     #
     C = Q[0]
+    if return_points:
+        return C, points
     #
     return C
 
