@@ -107,7 +107,7 @@ def deCasteljau2(P, n, m, u0, v0):
     # Although it's more efficient to compute this
     # on the smaller of n or m, the data structure I'm using
     # is overly simple and doesn't naturally support 2D indexing
-    Q = tuple(deCasteljau1(P[j], n, u0) for j in range(0, m + 1))
-    S = deCasteljau1(Q, m, v0)
+    Q = tuple(deCasteljau1(P[j], m, u0) for j in range(0, n + 1))
+    S = deCasteljau1(Q, n, v0)
     #
     return S
